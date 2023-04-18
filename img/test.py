@@ -4,7 +4,6 @@ from PIL import Image
 # 读取图片文件
 img = Image.open("screen.png")
 
-
 # 设置tesseract命令行参数
 config = "-l chi_sim --oem 1 --psm 3"
 

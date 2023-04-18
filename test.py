@@ -9,7 +9,7 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # 关卡名
-text = '责任'
+text = '规则'
 
 
 # 定义一个函数，接受一个图片路径和一个词作为参数
@@ -110,6 +110,4 @@ def rename_files(path):
     return len(files)
 
 
-# player_count = rename_files("img/player_1")
-# match_image("player_1", "8", 1)
-match_image("fight", 1, 1)
+match_image("player_2", 8, 1)

@@ -9,7 +9,7 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # 关卡名
-text = '师'
+text = '规则'
 
 
 # 定义一个函数，接受一个图片路径和一个词作为参数
@@ -129,13 +129,6 @@ while True:
     find_and_click()
     time.sleep(1)
     match_image("fight", 1, 1)
-    time.sleep(3)
-    match_image("fight", 1, 1)
-    time.sleep(1)
-    match_image("player_" + str(filename), player, 1)
-    player += 1
-    if player == player_count:
-        player = 0
     time.sleep(1)
     match_image("fight", 2, 1)
     time.sleep(1)
@@ -143,9 +136,20 @@ while True:
     time.sleep(1)
     match_image("fight", 4, 1)
     time.sleep(1)
+    match_image("player_" + str(filename), player, 1)
+    player += 1
+    if player == player_count:
+        player = 0
+    time.sleep(1)
     match_image("fight", 5, 1)
     time.sleep(1)
     match_image("fight", 6, 1)
+    time.sleep(1)
+    match_image("fight", 7, 1)
+    time.sleep(1)
+    match_image("fight", 8, 1)
+    time.sleep(1)
+    match_image("fight", 9, 1)
     time.sleep(60)
-    match_image("fight", 7, 60)
+    match_image("fight", 10, 60)
     xh += 1
