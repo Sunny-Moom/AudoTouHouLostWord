@@ -9,7 +9,7 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # 关卡名
-text = '规则'
+play_text = '姐妹'
 
 
 # 定义一个函数，接受一个图片路径和一个词作为参数
@@ -41,7 +41,7 @@ def adb_image():
 
 
 # OCR识别点击
-def find_and_click():
+def find_and_click(text):
     # 加载图像
 
     adb_image()
@@ -57,7 +57,7 @@ def find_and_click():
         time.sleep(3)
         sys.stdout.write("\033[F")  # 光标上移一行
         sys.stdout.write("\033[K")  # 清除当前行
-        find_and_click()
+        find_and_click(text)
 
 
 # 图像识别并点击
@@ -126,15 +126,15 @@ player = 0
 xh = 1
 while True:
     print("\033[32m" + f"战斗中，这是第 {xh} 次循环" + "\033[0m")
-    find_and_click()
+    find_and_click(play_text)
     time.sleep(1)
-    match_image("fight", 1, 1)
+    match_image("fight", 1, 2)
     time.sleep(1)
-    match_image("fight", 2, 1)
+    match_image("fight", 2, 2)
     time.sleep(1)
-    match_image("fight", 3, 1)
+    match_image("fight", 3, 2)
     time.sleep(1)
-    match_image("fight", 4, 1)
+    match_image("fight", 4, 2)
     time.sleep(1)
     match_image("player_" + str(filename), player, 1)
     player += 1
