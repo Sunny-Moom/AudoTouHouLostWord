@@ -37,7 +37,6 @@ def get_word_coordinates(image_path, word):
 def adb_image():
     subprocess.call("adb shell screencap -p /sdcard/screen.png", shell=True, stdout=subprocess.DEVNULL)
     subprocess.call("adb pull /sdcard/screen.png ./img/screen.png", shell=True, stdout=subprocess.DEVNULL)
-    subprocess.call("adb shell rm /sdcard/screen.png", shell=True, stdout=subprocess.DEVNULL)
 
 
 # OCR识别点击

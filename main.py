@@ -7,7 +7,6 @@ import cv2
 import numpy as np
 import pytesseract
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # 关卡名
 play_text = '姐妹'
 
@@ -37,7 +36,6 @@ def get_word_coordinates(image_path, word):
 def adb_image():
     subprocess.call("adb shell screencap -p /sdcard/screen.png", shell=True, stdout=subprocess.DEVNULL)
     subprocess.call("adb pull /sdcard/screen.png ./img/screen.png", shell=True, stdout=subprocess.DEVNULL)
-    subprocess.call("adb shell rm /sdcard/screen.png", shell=True, stdout=subprocess.DEVNULL)
 
 
 # OCR识别点击
