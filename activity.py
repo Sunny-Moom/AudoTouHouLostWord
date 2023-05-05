@@ -19,7 +19,7 @@ player = 0
 xh = 1
 while True:
     print("\033[32m" + f"战斗中，这是第 {xh} 次循环" + "\033[0m")
-    main_functions.find_and_click(main_functions.play_text)
+    main_functions.match_image("fight", 11, 2)
     time.sleep(1)
     main_functions.match_image("fight", 1, 2)
     time.sleep(1)
@@ -34,15 +34,15 @@ while True:
     if player == player_count:
         player = 0
     time.sleep(1)
-    main_functions.match_image("fight", 5, 1)
+    main_functions.match_image("fight", 5, 2)
     time.sleep(1)
-    main_functions.match_image("fight", 6, 1)
+    main_functions.match_image("fight", 6, 2)
     time.sleep(1)
-    main_functions.match_image("fight", 7, 1)
+    main_functions.match_image("fight", 7, 2)
     time.sleep(1)
-    main_functions.match_image("fight", 8, 1)
+    main_functions.match_image("fight", 8, 2)
     time.sleep(1)
-    main_functions.match_image("fight", 9, 1)
+    main_functions.match_image("fight", 9, 2)
     time.sleep(60)
     main_functions.match_image("fight", 10, 60)
     xh += 1
