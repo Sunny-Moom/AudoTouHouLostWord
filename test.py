@@ -1,3 +1,6 @@
+from datetime import datetime
+import time
+import daily_task
 import main_functions
 
-main_functions.match_image("fight",10,1)
+daily_task.day_siziwu()
