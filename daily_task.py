@@ -3,6 +3,7 @@ import time
 import main_functions
 
 
+# 每日任务，领取邮件
 def day_mail():
     main_functions.match_image("mail", 1, 1)
     time.sleep(2)
@@ -14,6 +15,7 @@ def day_mail():
     time.sleep(2)
 
 
+# 每日任务，领取好友金币
 def day_friends():
     main_functions.match_image("friends", 1, 1)
     time.sleep(2)
@@ -25,6 +27,7 @@ def day_friends():
     time.sleep(2)
 
 
+# 每日任务，补充食物
 def day_siziwu():
     main_functions.match_image("siziwu", 1, 1)
     time.sleep(2)
@@ -40,6 +43,7 @@ def day_siziwu():
     time.sleep(2)
 
 
+# 每日任务，技能升级
 def day_dao():
     main_functions.match_image("dao", 1, 1)
     time.sleep(2)
@@ -91,7 +95,7 @@ def day_1():
     time.sleep(2)
     center = main_functions.search_image("day", 6, 5)
     if center:
-        main_functions.row(center, 0, -800, 1000)
+        main_functions.row(center, 0, -800, 1)
         time.sleep(2)
     main_functions.match_image("day", 9, 1)
     day_fight()
@@ -102,7 +106,7 @@ def day_2():
     time.sleep(2)
     center = main_functions.search_image("day", 7, 5)
     if center:
-        main_functions.row(center, 0, -800, 1000)
+        main_functions.row(center, 0, -800, 1)
         time.sleep(2)
     main_functions.match_image("day", 10, 1)
     day_fight()
@@ -113,12 +117,13 @@ def day_3():
     time.sleep(2)
     center = main_functions.search_image("day", 8, 5)
     if center:
-        main_functions.row(center, 0, -800, 1000)
+        main_functions.row(center, 0, -800, 1)
         time.sleep(2)
     main_functions.match_image("day", 11, 1)
     day_fight()
 
 
+# 每日任务，每日关卡
 def day_day():
     main_functions.match_image("day", 1, 1)
     time.sleep(2)
@@ -133,6 +138,7 @@ def day_day():
     main_functions.match_image("day", 13, 1)
 
 
+# 每日任务，任务提交
 def day_task():
     main_functions.match_image("task", 1, 1)
     time.sleep(3)
@@ -145,6 +151,7 @@ def day_task():
     main_functions.match_image("task", 4, 1)
 
 
+# 启动游戏
 def day_start():
     center = main_functions.search_image("start", 1, 5)
     stop = main_functions.search_image("start", 2, 1)
@@ -157,6 +164,7 @@ def day_start():
         main_functions.tap(stop)
 
 
+# 每日任务，抽卡
 def day_chou():
     main_functions.match_image("start", 3, 1)
     time.sleep(2)

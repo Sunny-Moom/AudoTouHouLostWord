@@ -1,7 +1,21 @@
 import os
+import threading
 import time
 
 import main_functions
+import pai
+
+evn = True  # 初始化公共变量evn为True
+def worker():
+    while True:
+        global evn
+        # 线程执行的代码
+        time.sleep(4000)
+        evn=False
+
+# 创建并启动工作线程
+t = threading.Thread(target=worker)
+t.start()
 
 # 主程序
 filename = input("请输入角色池槽位：")
@@ -17,9 +31,9 @@ print("##############脚本已启动##############")
 time.sleep(5)
 player = 0
 xh = 1
-while True:
+while evn:
     print("\033[32m" + f"战斗中，这是第 {xh} 次循环" + "\033[0m")
-    main_functions.match_image("fight", 11, 2)
+    main_functions.match_image("fight", 11, 2, 0.9)
     time.sleep(1)
     main_functions.match_image("fight", 1, 2)
     time.sleep(1)
@@ -44,5 +58,18 @@ while True:
     time.sleep(1)
     main_functions.match_image("fight", 9, 2)
     time.sleep(60)
-    main_functions.match_image("fight", 10, 60)
+    while evn:
+        main_functions.search_tap("fight", 10, 1, 60)
+    if not evn:
+        main_functions.press(main_functions.search_image("evn", 1, 5), 5)
+        time.sleep(6)
+        main_functions.match_image("fight", 10, 4)
+        time.sleep(2)
+        main_functions.match_image("evn", 2, 4)
+        time.sleep(2)
+        pai.day_pai()
+        time.sleep(2)
+        main_functions.match_image("evn", 3, 4)
+        time.sleep(2)
+        evn=True
     xh += 1

@@ -46,7 +46,7 @@ def adb_image():
     subprocess.call("adb pull /sdcard/screen.png ./img/screen.png", shell=True, stdout=subprocess.DEVNULL)
 
 
-def image(template_file, num):
+def image(template_file, num, tep=0.8):
     # 加载图像
     adb_image()
     img_rgb = cv2.imread('./img/screen.png')
@@ -57,7 +57,7 @@ def image(template_file, num):
     result = cv2.matchTemplate(img_rgb, img_template, cv2.TM_CCOEFF_NORMED)
 
     # 匹配图像的坐标
-    loc = np.where(result >= 0.8)
+    loc = np.where(result >= tep)
     re = [w, h, loc]
     return re
 
@@ -86,7 +86,7 @@ def find_and_click(text):
             sys.stdout.write("\033[K")  # 清除当前行
 
 
-def match_image(template_file, num, cold):
+def match_image(template_file, num, cold, tep=0.8):
     """
     使用opencv实现图像识别并点击
     :param template_file: ./img文件夹内图像所处的文件夹名
@@ -95,7 +95,7 @@ def match_image(template_file, num, cold):
     :return: 无输出
     """
     while True:
-        re = image(template_file, num)
+        re = image(template_file, num, tep)
         w = re[0]
         h = re[1]
         loc = re[2]
@@ -116,9 +116,10 @@ def match_image(template_file, num, cold):
             time.sleep(cold)
 
 
-def search_image(template_file, num, tim):
+def search_image(template_file, num, tim, tep=0.8):
     """
     查找屏幕内是否出现指定图像
+    :param tep:
     :param template_file: ./img文件夹内图像所处的文件夹名
     :param num: 需要查找的图像的编号
     :param tim: 查找的次数（1秒1次）
@@ -126,7 +127,7 @@ def search_image(template_file, num, tim):
     """
     t = True
     while t:
-        re = image(template_file, num)
+        re = image(template_file, num, tep)
         w = re[0]
         h = re[1]
         loc = re[2]
@@ -184,7 +185,7 @@ def row(center, x, y, tim):
     cd[0] = center[0] + x
     cd[1] = center[1] + y
     subprocess.call(
-        "adb shell input touchscreen swipe {} {} {} {} {}".format(center[0], center[1], cd[0], cd[1], tim),
+        "adb shell input touchscreen swipe {} {} {} {} {}".format(center[0], center[1], cd[0], cd[1], tim*1000),
         shell=True, stdout=subprocess.DEVNULL)
 
 
@@ -225,3 +226,46 @@ def rename_files(path):
 
     # 返回文件数量
     return len(files)
+
+
+def image_all(template_file, num):
+    # 加载图像
+    adb_image()
+    img_rgb = cv2.imread('./img/screen.png')
+    img_template = cv2.imread('./img/' + template_file + '/' + str(num) + '.png')
+    w, h = img_template.shape[:-1]
+
+    # 使用OpenCV进行模板匹配
+    result = cv2.matchTemplate(img_rgb, img_template, cv2.TM_CCOEFF_NORMED)
+
+    # 匹配图像的坐标
+    loc = np.where(result >= 0.8)
+    return loc, w, h
+
+
+def search_image_all(template_file, num, tim):
+    """
+    查找屏幕内是否出现指定图像
+    :param template_file: ./img文件夹内图像所处的文件夹名
+    :param num: 需要查找的图像的编号
+    :param tim: 查找的次数（1秒1次）
+    :return: 如果找到，输出所有匹配图像的中心点坐标，如果没找到,输出False
+    """
+    t = True
+    while t:
+        loc, w, h = image_all(template_file, num)
+
+        if len(loc[0]) > 0:
+            # 计算匹配图像的中心点
+            centers = []
+            for pt in zip(*loc[::-1]):
+                center = (pt[0] + w // 2, pt[1] + h // 2)
+                centers.append(center)
+            t = False
+            return centers
+        else:
+            if tim == 0:
+                t = False
+                return False
+            tim -= 1
+            time.sleep(1)
