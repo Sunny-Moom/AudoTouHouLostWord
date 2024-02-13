@@ -5,36 +5,35 @@ import time
 from PIL import Image
 import cv2
 import numpy as np
-import pytesseract
 
 # 关卡名
 play_text = '姐妹'
 
 
-def get_word_coordinates(image_path, word):
-    """
-    调用tesseract识别图片内文字并将指定文字坐标输出
-    :param image_path: 需要识别的图片
-    :param word: 需要在图片中识别的文字
-    :return: 返回词的坐标，格式为(x,y,w,h)，如果没有匹配，返回None
-    """
-    # 读取图片文件
-    img = Image.open(image_path)
+# def get_word_coordinates(image_path, word):
+#     """
+#     调用tesseract识别图片内文字并将指定文字坐标输出
+#     :param image_path: 需要识别的图片
+#     :param word: 需要在图片中识别的文字
+#     :return: 返回词的坐标，格式为(x,y,w,h)，如果没有匹配，返回None
+#     """
+#     # 读取图片文件
+#     img = Image.open(image_path)
 
-    # 设置tesseract命令行参数
-    config = "-l chi_sim --oem 1 --psm 3"
+#     # 设置tesseract命令行参数
+#     config = "-l chi_sim --oem 1 --psm 3"
 
-    # 调用image_to_data方法，返回一个字典列表
-    data = pytesseract.image_to_data(img, config=config, output_type=pytesseract.Output.DICT)
+#     # 调用image_to_data方法，返回一个字典列表
+#     data = pytesseract.image_to_data(img, config=config, output_type=pytesseract.Output.DICT)
 
-    # 遍历字典列表，检查是否有匹配的词
-    for i in range(len(data["text"])):
-        if data["text"][i] == word:
-            # 返回词的坐标，格式为(x,y,w,h)
-            return data["left"][i], data["top"][i]
+#     # 遍历字典列表，检查是否有匹配的词
+#     for i in range(len(data["text"])):
+#         if data["text"][i] == word:
+#             # 返回词的坐标，格式为(x,y,w,h)
+#             return data["left"][i], data["top"][i]
 
-    # 如果没有匹配，返回None
-    return None
+#     # 如果没有匹配，返回None
+#     return None
 
 
 def adb_image():
@@ -62,28 +61,28 @@ def image(template_file, num, tep=0.8):
     return re
 
 
-def find_and_click(text):
-    """
-    实现点击指定文字
-    :param text: 需要点击的文字
-    :return: 无输出
-    """
-    while True:
-        adb_image()
-        center = get_word_coordinates('./img/screen.png', text)
-        if center is not None:
-            print("\033[32m" + "找到匹配图像，中心点坐标为：" + "\033[0m", center)
-            sys.stdout.write("\033[F")  # 光标上移一行
-            sys.stdout.write("\033[K")  # 清除当前行
-            # 模拟点击
-            subprocess.call("adb shell input tap {} {}".format(center[0], center[1]), shell=True,
-                            stdout=subprocess.DEVNULL)
-            break
-        else:
-            print("\033[31m" + f"未找到匹配图像，3秒后重新查找" + "\033[0m")
-            time.sleep(3)
-            sys.stdout.write("\033[F")  # 光标上移一行
-            sys.stdout.write("\033[K")  # 清除当前行
+# def find_and_click(text):
+#     """
+#     实现点击指定文字
+#     :param text: 需要点击的文字
+#     :return: 无输出
+#     """
+#     while True:
+#         adb_image()
+#         center = get_word_coordinates('./img/screen.png', text)
+#         if center is not None:
+#             print("\033[32m" + "找到匹配图像，中心点坐标为：" + "\033[0m", center)
+#             sys.stdout.write("\033[F")  # 光标上移一行
+#             sys.stdout.write("\033[K")  # 清除当前行
+#             # 模拟点击
+#             subprocess.call("adb shell input tap {} {}".format(center[0], center[1]), shell=True,
+#                             stdout=subprocess.DEVNULL)
+#             break
+#         else:
+#             print("\033[31m" + f"未找到匹配图像，3秒后重新查找" + "\033[0m")
+#             time.sleep(3)
+#             sys.stdout.write("\033[F")  # 光标上移一行
+#             sys.stdout.write("\033[K")  # 清除当前行
 
 
 def match_image(template_file, num, cold, tep=0.8):
