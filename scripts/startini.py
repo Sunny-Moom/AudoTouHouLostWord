@@ -1,5 +1,6 @@
 import subprocess
 from configparser import ConfigParser
+import utils.other_lw as other
 import sys
 
 path = './config/settings.ini'  # 配置文件路径
@@ -74,3 +75,8 @@ def start_ini():
     print("正在写入配置文件。。。")
     main_config()
     adb_check()
+
+
+if __name__ == '__main__':
+    other.search_pl()
+    start_ini()

@@ -8,6 +8,10 @@ config.read(path)
 adb_config = config.get('bin', 'adb')
 
 
+def cls():
+    subprocess.call('cls', shell=True)
+
+
 def adb_call(call):
     """
     无输出地执行adb命令
